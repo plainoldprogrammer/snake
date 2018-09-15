@@ -86,35 +86,47 @@ int main(int argc, char **argv)
 		{
 			snake_y += 1.0;
 		}
+		else if (snake_direction[LEFT] == true)
+		{
+			snake_x -= 1.0;
+		}
 		else if (snake_direction[RIGHT] == true)
 		{
 			snake_x += 1.0;
 		}
-		else if (snake_direction[LEFT])
-		{
-			snake_x -= 1.0;
-		}
 
 		if (ev.type == ALLEGRO_EVENT_TIMER)
 		{
-			if (key[KEY_UP] && snake_y >= 4.0)
+			if (key[KEY_UP])
 			{
-				snake_y -= 4.0;
+				snake_direction[UP] = true;
+				snake_direction[DOWN] = false;
+				snake_direction[LEFT] = false;
+				snake_direction[RIGHT] = false;
 			}
 
-			if (key[KEY_DOWN] && snake_y <= SCREEN_H - BOUNCER_SIZE -4.0)
+			if (key[KEY_DOWN])
 			{
-				snake_y += 4.0;
+				snake_direction[UP] = false;
+				snake_direction[DOWN] = true;
+				snake_direction[LEFT] = false;
+				snake_direction[RIGHT] = false;
 			}
 
-			if (key[KEY_LEFT] && snake_x >= 4.0)
+			if (key[KEY_LEFT])
 			{
-				snake_x -= 4.0;
+				snake_direction[UP] = false;
+				snake_direction[DOWN] = false;
+				snake_direction[LEFT] = true;
+				snake_direction[RIGHT] = false;
 			}
 
-			if (key[KEY_RIGHT] && snake_x <= SCREEN_W - BOUNCER_SIZE - 4.0)
+			if (key[KEY_RIGHT])
 			{
-				snake_x += 4.0;
+				snake_direction[UP] = false;
+				snake_direction[DOWN] = false;
+				snake_direction[LEFT] = false;
+				snake_direction[RIGHT] = true;
 			}
 
 			redraw = true;
@@ -143,24 +155,25 @@ int main(int argc, char **argv)
 		}
 		else if (ev.type == ALLEGRO_EVENT_KEY_UP)
 		{
-			switch (ev.keyboard.keycode)
-			{
-				case ALLEGRO_KEY_UP:
-					key[KEY_UP] = false;
-					break;
-				case ALLEGRO_KEY_DOWN:
-					key[KEY_DOWN] = false;
-					break;
-				case ALLEGRO_KEY_LEFT:
-					key[KEY_LEFT] = false;
-					break;
-				case ALLEGRO_KEY_RIGHT:
-					key[KEY_RIGHT] = false;
-					break;
-				case ALLEGRO_KEY_ESCAPE:
-					doexit = true;
-					break;
-			}
+		        switch (ev.keyboard.keycode)
+		        {
+		                case ALLEGRO_KEY_UP:
+		                        key[KEY_UP] = false;
+		                        break;
+		                case ALLEGRO_KEY_DOWN:
+		                        key[KEY_DOWN] = false;
+		                        break;
+		                case ALLEGRO_KEY_LEFT:
+		                        key[KEY_LEFT] = false;
+		                        break;
+		                case ALLEGRO_KEY_RIGHT:
+		                        key[KEY_RIGHT] = false;
+		                        break;
+		                case ALLEGRO_KEY_ESCAPE:
+		                        doexit = true;
+		                        key[KEY_RIGHT] = true;
+		                        break;
+		        }
 		}
 
 		if (redraw && al_is_event_queue_empty(event_queue))
