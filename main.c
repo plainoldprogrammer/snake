@@ -78,9 +78,21 @@ int main(int argc, char **argv)
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
 
-		if (snake_direction[RIGHT] == true)
+		if (snake_direction[UP] == true)
+		{
+			snake_y -= 1.0;
+		}
+		else if (snake_direction[DOWN] == true)
+		{
+			snake_y += 1.0;
+		}
+		else if (snake_direction[RIGHT] == true)
 		{
 			snake_x += 1.0;
+		}
+		else if (snake_direction[LEFT])
+		{
+			snake_x -= 1.0;
 		}
 
 		if (ev.type == ALLEGRO_EVENT_TIMER)
