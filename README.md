@@ -1,2 +1,3 @@
 # snake
-Snake videogame clone.
+
+This is a classic *snake* videogame clone.
