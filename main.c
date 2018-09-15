@@ -11,6 +11,8 @@ enum MKEYS
 	KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
 };
 
+int initResources(ALLEGRO_TIMER * *, ALLEGRO_DISPLAY * *);
+
 int main(int argc, char **argv)
 {
 	ALLEGRO_DISPLAY *display = NULL;
@@ -24,30 +26,7 @@ int main(int argc, char **argv)
 	bool redraw = true;
 	bool doexit = false;
 
-	if (!al_init())
-	{
-		fprintf(stderr, "failed to initialize allegro\n");
-	}
-
-	if (!al_install_keyboard())
-	{
-		fprintf(stderr, "failed to initialize the keyboard\n");
-	}
-
-	timer = al_create_timer(1.0 / FPS);
-	if (!timer)
-	{
-		fprintf(stderr, "failed to create timer");
-		return -1;
-	}
-
-	display = al_create_display(SCREEN_W, SCREEN_H);
-	if (!display)
-	{
-		fprintf(stderr, "failed to create display\n");
-		al_destroy_timer(timer);
-		return -1;
-	}
+	initResources(&timer, &display);
 
 	snake = al_create_bitmap(BOUNCER_SIZE, BOUNCER_SIZE);
 	if (!snake)
@@ -175,6 +154,37 @@ int main(int argc, char **argv)
 	al_destroy_timer(timer);
 	al_destroy_display(display);
 	al_destroy_event_queue(event_queue);
+
+	return 0;
+}
+
+
+int initResources(ALLEGRO_TIMER * *timer, ALLEGRO_DISPLAY * *display)
+{
+	if (!al_init())
+	{
+		fprintf(stderr, "failed to initialize allegro\n");
+	}
+
+	if (!al_install_keyboard())
+	{
+		fprintf(stderr, "failed to initialize the keyboard\n");
+	}
+
+	*timer = al_create_timer(1.0 / FPS);
+	if (!timer)
+	{
+		fprintf(stderr, "failed to create timer");
+		return -1;
+	}
+
+	*display = al_create_display(SCREEN_W, SCREEN_H);
+	if (!display)
+	{
+		fprintf(stderr, "failed to create display\n");
+		// al_destroy_timer(timer);
+		return -1;
+	}
 
 	return 0;
 }
