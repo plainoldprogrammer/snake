@@ -11,6 +11,11 @@ enum MKEYS
 	KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
 };
 
+enum SNAKE_DIRECTION
+{
+	UP, DOWN, LEFT, RIGHT
+};
+
 int initResources(ALLEGRO_TIMER * *, ALLEGRO_DISPLAY * *);
 
 int main(int argc, char **argv)
@@ -23,6 +28,7 @@ int main(int argc, char **argv)
 	float snake_x = SCREEN_W / 2.0 - BOUNCER_SIZE / 2.0;
 	float snake_y = SCREEN_H / 2.0 - BOUNCER_SIZE / 2.0;
 	bool key[4] = { false, false, false, false };
+	bool snake_direction[4] = { false, false, false, false };
 	bool redraw = true;
 	bool doexit = false;
 
@@ -65,10 +71,17 @@ int main(int argc, char **argv)
 
 	al_start_timer(timer);
 
+	snake_direction[RIGHT] = true;
+
 	while (!doexit)
 	{
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
+
+		if (snake_direction[RIGHT] == true)
+		{
+			snake_x += 1.0;
+		}
 
 		if (ev.type == ALLEGRO_EVENT_TIMER)
 		{
