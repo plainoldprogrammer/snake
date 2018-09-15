@@ -2,8 +2,8 @@
 #include <allegro5/allegro.h>
 
 const float FPS = 60;
-const int SCREEN_W = 640;
-const int SCREEN_H = 480;
+const int SCREEN_W = 1024;
+const int SCREEN_H = 768;
 const int BOUNCER_SIZE = 32;
 
 enum MKEYS
