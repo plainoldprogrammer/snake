@@ -16,10 +16,10 @@ int main(int argc, char **argv)
 	ALLEGRO_DISPLAY *display = NULL;
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	ALLEGRO_TIMER *timer = NULL;
-	ALLEGRO_BITMAP *bouncer = NULL;
+	ALLEGRO_BITMAP *snake = NULL;
 
-	float bouncer_x = SCREEN_W / 2.0 - BOUNCER_SIZE / 2.0;
-	float bouncer_y = SCREEN_H / 2.0 - BOUNCER_SIZE / 2.0;
+	float snake_x = SCREEN_W / 2.0 - BOUNCER_SIZE / 2.0;
+	float snake_y = SCREEN_H / 2.0 - BOUNCER_SIZE / 2.0;
 	bool key[4] = { false, false, false, false };
 	bool redraw = true;
 	bool doexit = false;
@@ -49,16 +49,16 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
-	bouncer = al_create_bitmap(BOUNCER_SIZE, BOUNCER_SIZE);
-	if (!bouncer)
+	snake = al_create_bitmap(BOUNCER_SIZE, BOUNCER_SIZE);
+	if (!snake)
 	{
-		fprintf(stderr, "failed to create bouncer bitmap\n");
+		fprintf(stderr, "failed to create snake bitmap\n");
 		al_destroy_display(display);
 		al_destroy_timer(timer);
 		return -1;
 	}
 
-	al_set_target_bitmap(bouncer);
+	al_set_target_bitmap(snake);
 	
 	al_clear_to_color(al_map_rgb(102, 255, 51));
 
@@ -68,7 +68,7 @@ int main(int argc, char **argv)
 	if (!event_queue)
 	{
 		fprintf(stderr, "failed to create event_queue");
-		al_destroy_bitmap(bouncer);
+		al_destroy_bitmap(snake);
 		al_destroy_display(display);
 		al_destroy_timer(timer);
 		return -1;
@@ -93,24 +93,24 @@ int main(int argc, char **argv)
 
 		if (ev.type == ALLEGRO_EVENT_TIMER)
 		{
-			if (key[KEY_UP] && bouncer_y >= 4.0)
+			if (key[KEY_UP] && snake_y >= 4.0)
 			{
-				bouncer_y -= 4.0;
+				snake_y -= 4.0;
 			}
 
-			if (key[KEY_DOWN] && bouncer_y <= SCREEN_H - BOUNCER_SIZE -4.0)
+			if (key[KEY_DOWN] && snake_y <= SCREEN_H - BOUNCER_SIZE -4.0)
 			{
-				bouncer_y += 4.0;
+				snake_y += 4.0;
 			}
 
-			if (key[KEY_LEFT] && bouncer_x >= 4.0)
+			if (key[KEY_LEFT] && snake_x >= 4.0)
 			{
-				bouncer_x -= 4.0;
+				snake_x -= 4.0;
 			}
 
-			if (key[KEY_RIGHT] && bouncer_x <= SCREEN_W - BOUNCER_SIZE - 4.0)
+			if (key[KEY_RIGHT] && snake_x <= SCREEN_W - BOUNCER_SIZE - 4.0)
 			{
-				bouncer_x += 4.0;
+				snake_x += 4.0;
 			}
 
 			redraw = true;
@@ -165,13 +165,13 @@ int main(int argc, char **argv)
 			
 			al_clear_to_color(al_map_rgb(0, 0, 0));
 
-			al_draw_bitmap(bouncer, bouncer_x, bouncer_y, 0);
+			al_draw_bitmap(snake, snake_x, snake_y, 0);
 
 			al_flip_display();
 		}
 	}
 
-	al_destroy_bitmap(bouncer);
+	al_destroy_bitmap(snake);
 	al_destroy_timer(timer);
 	al_destroy_display(display);
 	al_destroy_event_queue(event_queue);
