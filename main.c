@@ -171,7 +171,6 @@ int main(int argc, char **argv)
 		                        break;
 		                case ALLEGRO_KEY_ESCAPE:
 		                        doexit = true;
-		                        key[KEY_RIGHT] = true;
 		                        break;
 		        }
 		}
