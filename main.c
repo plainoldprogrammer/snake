@@ -4,7 +4,7 @@
 const float FPS = 60;
 const int SCREEN_W = 1024;
 const int SCREEN_H = 768;
-const int BOUNCER_SIZE = 32;
+const int SNAKE_SIZE = 16;
 
 enum MKEYS
 {
@@ -25,8 +25,8 @@ int main(int argc, char **argv)
 	ALLEGRO_TIMER *timer = NULL;
 	ALLEGRO_BITMAP *snake = NULL;
 
-	float snake_x = SCREEN_W / 2.0 - BOUNCER_SIZE / 2.0;
-	float snake_y = SCREEN_H / 2.0 - BOUNCER_SIZE / 2.0;
+	float snake_x = SCREEN_W / 2.0 - SNAKE_SIZE / 2.0;
+	float snake_y = SCREEN_H / 2.0 - SNAKE_SIZE / 2.0;
 	bool key[4] = { false, false, false, false };
 	bool snake_direction[4] = { false, false, false, false };
 	bool redraw = true;
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 
 	initResources(&timer, &display);
 
-	snake = al_create_bitmap(BOUNCER_SIZE, BOUNCER_SIZE);
+	snake = al_create_bitmap(SNAKE_SIZE, SNAKE_SIZE);
 	if (!snake)
 	{
 		fprintf(stderr, "failed to create snake bitmap\n");
