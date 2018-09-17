@@ -27,6 +27,7 @@ int main(int argc, char **argv)
 	ALLEGRO_TIMER *timer = NULL;
 	ALLEGRO_BITMAP *snake = NULL;
 	ALLEGRO_BITMAP *brick_top = NULL;
+	ALLEGRO_BITMAP *brick_bottom = NULL;
 
 	float snake_x = SCREEN_W / 2.0 - SNAKE_SIZE / 2.0;
 	float snake_y = SCREEN_H / 2.0 - SNAKE_SIZE / 2.0;
@@ -56,10 +57,24 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
+	brick_bottom = al_create_bitmap(BRICK_WIDTH_SIZE, BRICK_HEIGHT_SIZE);
+	if (!brick_bottom)
+	{
+		fprintf(stderr, "failed to create a brick_bottom bitmap\n");
+		al_destroy_bitmap(brick_top);
+		al_destroy_bitmap(snake);
+		al_destroy_display(display);
+		al_destroy_timer(timer);
+		return -1;
+	}
+
 	al_set_target_bitmap(snake);
 	al_clear_to_color(al_map_rgb(102, 255, 51));
 
 	al_set_target_bitmap(brick_top);
+	al_clear_to_color(al_map_rgb(194, 194, 214));
+	
+	al_set_target_bitmap(brick_bottom);
 	al_clear_to_color(al_map_rgb(194, 194, 214));
 
 	al_set_target_bitmap(al_get_backbuffer(display));
@@ -200,6 +215,7 @@ int main(int argc, char **argv)
 			al_draw_bitmap(snake, snake_x, snake_y, 0);
 
 			al_draw_bitmap(brick_top, 0, 0, 0);
+			al_draw_bitmap(brick_bottom, 0, SCREEN_H - BRICK_HEIGHT_SIZE, 0);
 
 			al_flip_display();
 		}
