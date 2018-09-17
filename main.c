@@ -5,7 +5,8 @@ const float FPS = 60;
 const int SCREEN_W = 1024;
 const int SCREEN_H = 768;
 const int SNAKE_SIZE = 16;
-const int BRICK_SIZE = 32;
+const int BRICK_WIDTH_SIZE = SCREEN_W;
+const int BRICK_HEIGHT_SIZE = 32;
 
 enum MKEYS
 {
@@ -25,7 +26,7 @@ int main(int argc, char **argv)
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	ALLEGRO_TIMER *timer = NULL;
 	ALLEGRO_BITMAP *snake = NULL;
-	ALLEGRO_BITMAP *brick = NULL;
+	ALLEGRO_BITMAP *brick_top = NULL;
 
 	float snake_x = SCREEN_W / 2.0 - SNAKE_SIZE / 2.0;
 	float snake_y = SCREEN_H / 2.0 - SNAKE_SIZE / 2.0;
@@ -45,10 +46,10 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
-	brick = al_create_bitmap(BRICK_SIZE, BRICK_SIZE);
-	if (!brick)
+	brick_top = al_create_bitmap(BRICK_WIDTH_SIZE, BRICK_HEIGHT_SIZE);
+	if (!brick_top)
 	{
-		fprintf(stderr, "failed to create a brick bitmap\n");
+		fprintf(stderr, "failed to create a brick_top bitmap\n");
 		al_destroy_bitmap(snake);
 		al_destroy_display(display);
 		al_destroy_timer(timer);
@@ -58,7 +59,7 @@ int main(int argc, char **argv)
 	al_set_target_bitmap(snake);
 	al_clear_to_color(al_map_rgb(102, 255, 51));
 
-	al_set_target_bitmap(brick);
+	al_set_target_bitmap(brick_top);
 	al_clear_to_color(al_map_rgb(194, 194, 214));
 
 	al_set_target_bitmap(al_get_backbuffer(display));
@@ -67,7 +68,7 @@ int main(int argc, char **argv)
 	if (!event_queue)
 	{
 		fprintf(stderr, "failed to create event_queue");
-		al_destroy_bitmap(brick);
+		al_destroy_bitmap(brick_top);
 		al_destroy_bitmap(snake);
 		al_destroy_display(display);
 		al_destroy_timer(timer);
@@ -198,7 +199,7 @@ int main(int argc, char **argv)
 
 			al_draw_bitmap(snake, snake_x, snake_y, 0);
 
-			al_draw_bitmap(brick, 0, 0, 0);
+			al_draw_bitmap(brick_top, 0, 0, 0);
 
 			al_flip_display();
 		}
