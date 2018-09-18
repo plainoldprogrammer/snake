@@ -31,6 +31,7 @@ int main(int argc, char **argv)
 	ALLEGRO_BITMAP *brick_top = NULL;
 	ALLEGRO_BITMAP *brick_bottom = NULL;
 	ALLEGRO_BITMAP *brick_left = NULL;
+	ALLEGRO_BITMAP *brick_right = NULL;
 
 	float snake_x = SCREEN_W / 2.0 - SNAKE_SIZE / 2.0;
 	float snake_y = SCREEN_H / 2.0 - SNAKE_SIZE / 2.0;
@@ -83,6 +84,19 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
+	brick_right = al_create_bitmap(BRICK_VERTICAL_WIDTH_SIZE, BRICK_VERTICAL_HEIGHT_SIZE);
+	if (!brick_right)
+	{
+		fprintf(stderr, "failed to create a brick_right bitmap\n");
+		al_destroy_bitmap(brick_left);
+		al_destroy_bitmap(brick_bottom);
+		al_destroy_bitmap(brick_top);
+		al_destroy_bitmap(snake);
+		al_destroy_display(display);
+		al_destroy_timer(timer);
+		return -1;
+	}
+
 	al_set_target_bitmap(snake);
 	al_clear_to_color(al_map_rgb(102, 255, 51));
 
@@ -95,12 +109,18 @@ int main(int argc, char **argv)
 	al_set_target_bitmap(brick_left);
 	al_clear_to_color(al_map_rgb(133, 133, 173));
 
+	al_set_target_bitmap(brick_right);
+	al_clear_to_color(al_map_rgb(133, 133, 173));
+
 	al_set_target_bitmap(al_get_backbuffer(display));
 
 	event_queue = al_create_event_queue();
 	if (!event_queue)
 	{
 		fprintf(stderr, "failed to create event_queue");
+		al_destroy_bitmap(brick_right);
+		al_destroy_bitmap(brick_left);
+		al_destroy_bitmap(brick_bottom);
 		al_destroy_bitmap(brick_top);
 		al_destroy_bitmap(snake);
 		al_destroy_display(display);
@@ -235,6 +255,7 @@ int main(int argc, char **argv)
 			al_draw_bitmap(brick_top, 0, 0, 0);
 			al_draw_bitmap(brick_bottom, 0, SCREEN_H - BRICK_HORIZONTAL_HEIGHT_SIZE, 0);
 			al_draw_bitmap(brick_left, 0, BRICK_HORIZONTAL_HEIGHT_SIZE, 0);
+			al_draw_bitmap(brick_right, SCREEN_W - BRICK_VERTICAL_WIDTH_SIZE, BRICK_HORIZONTAL_HEIGHT_SIZE, 0);
 
 			al_flip_display();
 		}
