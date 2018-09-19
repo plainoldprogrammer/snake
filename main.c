@@ -22,6 +22,8 @@ enum SNAKE_DIRECTION
 
 int initResources(ALLEGRO_TIMER * *, ALLEGRO_DISPLAY * *);
 
+int isSnakeCollisionWithWall(int, int, int, int, int, int, int, int);
+
 int main(int argc, char **argv)
 {
 	ALLEGRO_DISPLAY *display = NULL;
@@ -297,6 +299,12 @@ int initResources(ALLEGRO_TIMER * *timer, ALLEGRO_DISPLAY * *display)
 		return -1;
 	}
 
+	return 0;
+}
+
+
+int isSnakeCollisionWithWall(int snakePosX1, int snakePosY1, int snakeWidth, int snakeHeight, int wallPosX1, int wallPosY1, int wallWidth, int wallHeight)
+{
 	return 0;
 }
 
