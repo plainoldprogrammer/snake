@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <allegro5/allegro.h>
 
-const float FPS = 60;
-const int SCREEN_W = 1024;
-const int SCREEN_H = 768;
-const int SNAKE_SIZE = 16;
-const int BRICK_HORIZONTAL_WIDTH_SIZE = SCREEN_W;
-const int BRICK_HORIZONTAL_HEIGHT_SIZE = 32;
-const int BRICK_VERTICAL_WIDTH_SIZE = 32;
-const int BRICK_VERTICAL_HEIGHT_SIZE = SCREEN_H - (BRICK_HORIZONTAL_HEIGHT_SIZE * 2);
+#define FPS 60
+#define SNAKE_SIZE 16
+#define SCREEN_H 768 / 2
+#define SCREEN_W 1024 / 2
+#define BRICK_HORIZONTAL_WIDTH_SIZE  SCREEN_W
+#define BRICK_HORIZONTAL_HEIGHT_SIZE 32
+#define BRICK_VERTICAL_WIDTH_SIZE 32
+#define BRICK_VERTICAL_HEIGHT_SIZE SCREEN_H - (BRICK_HORIZONTAL_HEIGHT_SIZE * 2)
 
 enum MKEYS
 {
@@ -104,7 +104,7 @@ int main(int argc, char **argv)
 
 	al_set_target_bitmap(brick_top);
 	al_clear_to_color(al_map_rgb(194, 194, 214));
-	
+
 	al_set_target_bitmap(brick_bottom);
 	al_clear_to_color(al_map_rgb(194, 194, 214));
 
@@ -131,7 +131,7 @@ int main(int argc, char **argv)
 	}
 
 	al_register_event_source(event_queue, al_get_display_event_source(display));
-	
+
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
@@ -213,7 +213,7 @@ int main(int argc, char **argv)
 				case ALLEGRO_KEY_UP:
 					key[KEY_UP] = true;
 					break;
-				case ALLEGRO_KEY_DOWN:	
+				case ALLEGRO_KEY_DOWN:
 					key[KEY_DOWN] = true;
 					break;
 				case ALLEGRO_KEY_LEFT:
@@ -249,7 +249,7 @@ int main(int argc, char **argv)
 		if (redraw && al_is_event_queue_empty(event_queue))
 		{
 			redraw = false;
-			
+
 			al_clear_to_color(al_map_rgb(0, 0, 0));
 
 			al_draw_bitmap(snake, snake_x, snake_y, 0);

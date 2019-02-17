@@ -1,2 +1,8 @@
 *.swp
-
+allegro-5.0.10-monolith-mt-debug.dll
+allegro.log
+bin/
+obj/
+*.cbp
+*.depend
+*.layout
