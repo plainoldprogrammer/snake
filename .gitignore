@@ -1,10 +1,7 @@
 *.swp
-allegro-5.0.10-monolith-mt-debug.dll
+*.depend
+*.layout
 allegro.log
 bin/
 obj/
-*.cbp
-*.depend
-*.layout
-allegro-5.0.10-mingw-4.7.0/*
 
