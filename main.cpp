@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 	float snake_x = SCREEN_W / 2.0 - SNAKE_SIZE / 2.0;
 	float snake_y = SCREEN_H / 2.0 - SNAKE_SIZE / 2.0;
 	bool key[4] = { false, false, false, false };
-	bool snake_direction[4] = { false, false, false, false };
+	SNAKE_DIRECTION snake_direction = RIGHT;
 	bool redraw = true;
 	bool doexit = false;
 
@@ -142,26 +142,24 @@ int main(int argc, char **argv)
 
 	al_start_timer(timer);
 
-	snake_direction[RIGHT] = true;
-
 	while (!doexit)
 	{
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
 
-		if (snake_direction[UP] == true)
+		if (snake_direction == UP)
 		{
 			snake_y -= 1.0;
 		}
-		else if (snake_direction[DOWN] == true)
+		else if (snake_direction == DOWN)
 		{
 			snake_y += 1.0;
 		}
-		else if (snake_direction[LEFT] == true)
+		else if (snake_direction == LEFT)
 		{
 			snake_x -= 1.0;
 		}
-		else if (snake_direction[RIGHT] == true)
+		else if (snake_direction == RIGHT)
 		{
 			snake_x += 1.0;
 		}
@@ -170,34 +168,22 @@ int main(int argc, char **argv)
 		{
 			if (key[KEY_UP])
 			{
-				snake_direction[UP] = true;
-				snake_direction[DOWN] = false;
-				snake_direction[LEFT] = false;
-				snake_direction[RIGHT] = false;
+				snake_direction = UP;
 			}
 
 			if (key[KEY_DOWN])
 			{
-				snake_direction[UP] = false;
-				snake_direction[DOWN] = true;
-				snake_direction[LEFT] = false;
-				snake_direction[RIGHT] = false;
+				snake_direction = DOWN;
 			}
 
 			if (key[KEY_LEFT])
 			{
-				snake_direction[UP] = false;
-				snake_direction[DOWN] = false;
-				snake_direction[LEFT] = true;
-				snake_direction[RIGHT] = false;
+				snake_direction = LEFT;
 			}
 
 			if (key[KEY_RIGHT])
 			{
-				snake_direction[UP] = false;
-				snake_direction[DOWN] = false;
-				snake_direction[LEFT] = false;
-				snake_direction[RIGHT] = true;
+				snake_direction = RIGHT;
 			}
 
 			redraw = true;
