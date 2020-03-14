@@ -37,8 +37,8 @@ int main(int argc, char **argv)
 
 	float snake_x = SCREEN_W / 2.0 - SNAKE_SIZE / 2.0;
 	float snake_y = SCREEN_H / 2.0 - SNAKE_SIZE / 2.0;
-	bool key[4] = { false, false, false, false };
 	Direction snake_direction = RIGHT;
+	Direction key_pressed = RIGHT;
 	
 	bool redraw = true;
 	bool doexit = false;
@@ -167,22 +167,22 @@ int main(int argc, char **argv)
 
 		if (ev.type == ALLEGRO_EVENT_TIMER)
 		{
-			if (key[KEY_UP])
+			if (key_pressed == UP)
 			{
 				snake_direction = UP;
 			}
 
-			if (key[KEY_DOWN])
+			if (key_pressed == DOWN)
 			{
 				snake_direction = DOWN;
 			}
 
-			if (key[KEY_LEFT])
+			if (key_pressed == LEFT)
 			{
 				snake_direction = LEFT;
 			}
 
-			if (key[KEY_RIGHT])
+			if (key_pressed == RIGHT)
 			{
 				snake_direction = RIGHT;
 			}
@@ -198,39 +198,27 @@ int main(int argc, char **argv)
 			switch (ev.keyboard.keycode)
 			{
 				case ALLEGRO_KEY_UP:
-					key[KEY_UP] = true;
+					key_pressed = UP;
 					break;
 				case ALLEGRO_KEY_DOWN:
-					key[KEY_DOWN] = true;
+					key_pressed = DOWN;
 					break;
 				case ALLEGRO_KEY_LEFT:
-					key[KEY_LEFT] = true;
+					key_pressed = LEFT;
 					break;
 				case ALLEGRO_KEY_RIGHT:
-					key[KEY_RIGHT] = true;
+					key_pressed = RIGHT;
 					break;
 			}
 		}
 		else if (ev.type == ALLEGRO_EVENT_KEY_UP)
 		{
-		        switch (ev.keyboard.keycode)
-		        {
-		                case ALLEGRO_KEY_UP:
-		                        key[KEY_UP] = false;
-		                        break;
-		                case ALLEGRO_KEY_DOWN:
-		                        key[KEY_DOWN] = false;
-		                        break;
-		                case ALLEGRO_KEY_LEFT:
-		                        key[KEY_LEFT] = false;
-		                        break;
-		                case ALLEGRO_KEY_RIGHT:
-		                        key[KEY_RIGHT] = false;
-		                        break;
-		                case ALLEGRO_KEY_ESCAPE:
-		                        doexit = true;
-		                        break;
-		        }
+			switch (ev.keyboard.keycode)
+			{
+				case ALLEGRO_KEY_ESCAPE:
+					doexit = true;
+					break;
+			}
 		}
 
 		if (redraw && al_is_event_queue_empty(event_queue))
