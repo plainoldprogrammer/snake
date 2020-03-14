@@ -15,7 +15,7 @@ enum MKEYS
 	KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
 };
 
-enum SNAKE_DIRECTION
+enum Direction
 {
 	UP, DOWN, LEFT, RIGHT
 };
@@ -38,7 +38,8 @@ int main(int argc, char **argv)
 	float snake_x = SCREEN_W / 2.0 - SNAKE_SIZE / 2.0;
 	float snake_y = SCREEN_H / 2.0 - SNAKE_SIZE / 2.0;
 	bool key[4] = { false, false, false, false };
-	SNAKE_DIRECTION snake_direction = RIGHT;
+	Direction snake_direction = RIGHT;
+	
 	bool redraw = true;
 	bool doexit = false;
 
