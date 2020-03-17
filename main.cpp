@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <allegro5/allegro.h>
 
+#include "easylogging++.h"
+
 #define FPS 60
 #define SNAKE_SIZE 16
 #define SCREEN_H 600
@@ -9,6 +11,8 @@
 #define BRICK_HORIZONTAL_HEIGHT_SIZE 32
 #define BRICK_VERTICAL_WIDTH_SIZE 32
 #define BRICK_VERTICAL_HEIGHT_SIZE SCREEN_H - (BRICK_HORIZONTAL_HEIGHT_SIZE * 2)
+
+INITIALIZE_EASYLOGGINGPP
 
 enum MKEYS
 {
@@ -143,6 +147,8 @@ int main(int argc, char **argv)
 
 	al_start_timer(timer);
 
+		LOG(INFO) << "Allegro has been initialized";
+
 	while (!doexit)
 	{
 		ALLEGRO_EVENT ev;
@@ -242,6 +248,8 @@ int main(int argc, char **argv)
 	al_destroy_timer(timer);
 	al_destroy_display(display);
 	al_destroy_event_queue(event_queue);
+
+	LOG(INFO) << "End of the program";
 
 	return 0;
 }
