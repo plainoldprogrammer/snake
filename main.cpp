@@ -189,9 +189,13 @@ int main(int argc, char **argv)
 		}
 	}
 
-	al_destroy_bitmap(snake);
 	al_destroy_timer(timer);
 	al_destroy_display(display);
+	al_destroy_bitmap(snake);
+	al_destroy_bitmap(brick_top);
+	al_destroy_bitmap(brick_bottom);
+	al_destroy_bitmap(brick_left);
+	al_destroy_bitmap(brick_right);
 	al_destroy_event_queue(event_queue);
 
 	LOG(INFO) << "End of the program";
