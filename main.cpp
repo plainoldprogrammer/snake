@@ -147,8 +147,6 @@ int main(int argc, char **argv)
 
 	al_start_timer(timer);
 
-		LOG(INFO) << "Allegro has been initialized";
-
 	while (!doexit)
 	{
 		ALLEGRO_EVENT ev;
@@ -282,6 +280,7 @@ int initResources(ALLEGRO_TIMER * *timer, ALLEGRO_DISPLAY * *display)
 		return -1;
 	}
 
+	LOG(INFO) << "Allegro resources has been initialized correctly";
 	return 0;
 }
 
