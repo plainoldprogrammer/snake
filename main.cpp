@@ -24,7 +24,8 @@ enum Direction
 	UP, DOWN, LEFT, RIGHT
 };
 
-int initResources(ALLEGRO_TIMER * *, ALLEGRO_DISPLAY * *);
+int init_allegro_resources(ALLEGRO_TIMER * *, ALLEGRO_DISPLAY * *);
+int init_game_graphics(ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_DISPLAY **, ALLEGRO_TIMER **);
 
 int isSnakeCollisionWithWall(int, int, int, int, int, int, int, int);
 
@@ -47,62 +48,8 @@ int main(int argc, char **argv)
 	bool redraw = true;
 	bool doexit = false;
 
-	initResources(&timer, &display);
-
-	snake = al_create_bitmap(SNAKE_SIZE, SNAKE_SIZE);
-	if (!snake)
-	{
-		fprintf(stderr, "failed to create snake bitmap\n");
-		al_destroy_display(display);
-		al_destroy_timer(timer);
-		return -1;
-	}
-
-	brick_top = al_create_bitmap(BRICK_HORIZONTAL_WIDTH_SIZE, BRICK_HORIZONTAL_HEIGHT_SIZE);
-	if (!brick_top)
-	{
-		fprintf(stderr, "failed to create a brick_top bitmap\n");
-		al_destroy_bitmap(snake);
-		al_destroy_display(display);
-		al_destroy_timer(timer);
-		return -1;
-	}
-
-	brick_bottom = al_create_bitmap(BRICK_HORIZONTAL_WIDTH_SIZE, BRICK_HORIZONTAL_HEIGHT_SIZE);
-	if (!brick_bottom)
-	{
-		fprintf(stderr, "failed to create a brick_bottom bitmap\n");
-		al_destroy_bitmap(brick_top);
-		al_destroy_bitmap(snake);
-		al_destroy_display(display);
-		al_destroy_timer(timer);
-		return -1;
-	}
-
-	brick_left = al_create_bitmap(BRICK_VERTICAL_WIDTH_SIZE, BRICK_VERTICAL_HEIGHT_SIZE);
-	if (!brick_left)
-	{
-		fprintf(stderr, "failed to create a brick_left bitmap\n");
-		al_destroy_bitmap(brick_bottom);
-		al_destroy_bitmap(brick_top);
-		al_destroy_bitmap(snake);
-		al_destroy_display(display);
-		al_destroy_timer(timer);
-		return -1;
-	}
-
-	brick_right = al_create_bitmap(BRICK_VERTICAL_WIDTH_SIZE, BRICK_VERTICAL_HEIGHT_SIZE);
-	if (!brick_right)
-	{
-		fprintf(stderr, "failed to create a brick_right bitmap\n");
-		al_destroy_bitmap(brick_left);
-		al_destroy_bitmap(brick_bottom);
-		al_destroy_bitmap(brick_top);
-		al_destroy_bitmap(snake);
-		al_destroy_display(display);
-		al_destroy_timer(timer);
-		return -1;
-	}
+	init_allegro_resources(&timer, &display);
+	init_game_graphics(&snake, &brick_top, &brick_bottom, &brick_left, &brick_right, &display, &timer);
 
 	al_set_target_bitmap(snake);
 	al_clear_to_color(al_map_rgb(102, 255, 51));
@@ -253,7 +200,7 @@ int main(int argc, char **argv)
 }
 
 
-int initResources(ALLEGRO_TIMER * *timer, ALLEGRO_DISPLAY * *display)
+int init_allegro_resources(ALLEGRO_TIMER * *timer, ALLEGRO_DISPLAY * *display)
 {
 	if (!al_init())
 	{
@@ -282,6 +229,67 @@ int initResources(ALLEGRO_TIMER * *timer, ALLEGRO_DISPLAY * *display)
 
 	LOG(INFO) << "Allegro resources has been initialized correctly";
 	return 0;
+}
+
+
+int init_game_graphics(ALLEGRO_BITMAP ** snake, ALLEGRO_BITMAP ** brick_top, ALLEGRO_BITMAP ** brick_bottom, ALLEGRO_BITMAP ** brick_left, ALLEGRO_BITMAP ** brick_right, ALLEGRO_DISPLAY ** display, ALLEGRO_TIMER ** timer)
+{
+	*snake = al_create_bitmap(SNAKE_SIZE, SNAKE_SIZE);
+	if (!(*snake))
+	{
+		fprintf(stderr, "failed to create snake bitmap\n");
+		al_destroy_display(*display);
+		al_destroy_timer(*timer);
+		return -1;
+	}
+
+	*brick_top = al_create_bitmap(BRICK_HORIZONTAL_WIDTH_SIZE, BRICK_HORIZONTAL_HEIGHT_SIZE);
+	if (!(*brick_top))
+	{
+		fprintf(stderr, "failed to create a brick_top bitmap\n");
+		al_destroy_bitmap(*snake);
+		al_destroy_display(*display);
+		al_destroy_timer(*timer);
+		return -1;
+	}
+
+	*brick_bottom = al_create_bitmap(BRICK_HORIZONTAL_WIDTH_SIZE, BRICK_HORIZONTAL_HEIGHT_SIZE);
+	if (!(*brick_bottom))
+	{
+		fprintf(stderr, "failed to create a brick_bottom bitmap\n");
+		al_destroy_bitmap(*brick_top);
+		al_destroy_bitmap(*snake);
+		al_destroy_display(*display);
+		al_destroy_timer(*timer);
+		return -1;
+	}
+
+	*brick_left = al_create_bitmap(BRICK_VERTICAL_WIDTH_SIZE, BRICK_VERTICAL_HEIGHT_SIZE);
+	if (!(*brick_left))
+	{
+		fprintf(stderr, "failed to create a brick_left bitmap\n");
+		al_destroy_bitmap(*brick_bottom);
+		al_destroy_bitmap(*brick_top);
+		al_destroy_bitmap(*snake);
+		al_destroy_display(*display);
+		al_destroy_timer(*timer);
+		return -1;
+	}
+
+	*brick_right = al_create_bitmap(BRICK_VERTICAL_WIDTH_SIZE, BRICK_VERTICAL_HEIGHT_SIZE);
+	if (!(*brick_right))
+	{
+		fprintf(stderr, "failed to create a brick_right bitmap\n");
+		al_destroy_bitmap(*brick_left);
+		al_destroy_bitmap(*brick_bottom);
+		al_destroy_bitmap(*brick_top);
+		al_destroy_bitmap(*snake);
+		al_destroy_display(*display);
+		al_destroy_timer(*timer);
+		return -1;
+	}
+
+	LOG(INFO) << "Game graphics has been initialized correctly";
 }
 
 
