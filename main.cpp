@@ -25,9 +25,15 @@ enum Direction
 };
 
 int init_allegro_resources(ALLEGRO_TIMER * *, ALLEGRO_DISPLAY * *);
+
 int init_game_graphics(ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_DISPLAY **, ALLEGRO_TIMER **);
 
+void set_graphics_color(ALLEGRO_BITMAP *, ALLEGRO_BITMAP *, ALLEGRO_BITMAP *, ALLEGRO_BITMAP *, ALLEGRO_BITMAP *);
+
+int create_event_queue(ALLEGRO_EVENT_QUEUE **, ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_DISPLAY **, ALLEGRO_TIMER **);
+
 int isSnakeCollisionWithWall(int, int, int, int, int, int, int, int);
+
 
 int main(int argc, char **argv)
 {
@@ -50,42 +56,14 @@ int main(int argc, char **argv)
 
 	init_allegro_resources(&timer, &display);
 	init_game_graphics(&snake, &brick_top, &brick_bottom, &brick_left, &brick_right, &display, &timer);
-
-	al_set_target_bitmap(snake);
-	al_clear_to_color(al_map_rgb(102, 255, 51));
-
-	al_set_target_bitmap(brick_top);
-	al_clear_to_color(al_map_rgb(194, 194, 214));
-
-	al_set_target_bitmap(brick_bottom);
-	al_clear_to_color(al_map_rgb(194, 194, 214));
-
-	al_set_target_bitmap(brick_left);
-	al_clear_to_color(al_map_rgb(133, 133, 173));
-
-	al_set_target_bitmap(brick_right);
-	al_clear_to_color(al_map_rgb(133, 133, 173));
+	set_graphics_color(snake, brick_top, brick_bottom, brick_left, brick_right);
 
 	al_set_target_bitmap(al_get_backbuffer(display));
 
-	event_queue = al_create_event_queue();
-	if (!event_queue)
-	{
-		fprintf(stderr, "failed to create event_queue");
-		al_destroy_bitmap(brick_right);
-		al_destroy_bitmap(brick_left);
-		al_destroy_bitmap(brick_bottom);
-		al_destroy_bitmap(brick_top);
-		al_destroy_bitmap(snake);
-		al_destroy_display(display);
-		al_destroy_timer(timer);
-		return -1;
-	}
+	create_event_queue(&event_queue, &brick_right, &brick_left, &brick_bottom, &brick_top, &snake, &display, &timer);
 
 	al_register_event_source(event_queue, al_get_display_event_source(display));
-
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
-
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 
 	al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -294,6 +272,45 @@ int init_game_graphics(ALLEGRO_BITMAP ** snake, ALLEGRO_BITMAP ** brick_top, ALL
 	}
 
 	LOG(INFO) << "Game graphics has been initialized correctly";
+}
+
+
+void set_graphics_color(ALLEGRO_BITMAP *snake, ALLEGRO_BITMAP * brick_top, ALLEGRO_BITMAP * brick_bottom, ALLEGRO_BITMAP * brick_left, ALLEGRO_BITMAP * brick_right)
+{
+	al_set_target_bitmap(snake);
+	al_clear_to_color(al_map_rgb(102, 255, 51));
+
+	al_set_target_bitmap(brick_top);
+	al_clear_to_color(al_map_rgb(194, 194, 214));
+
+	al_set_target_bitmap(brick_bottom);
+	al_clear_to_color(al_map_rgb(194, 194, 214));
+
+	al_set_target_bitmap(brick_left);
+	al_clear_to_color(al_map_rgb(133, 133, 173));
+
+	al_set_target_bitmap(brick_right);
+	al_clear_to_color(al_map_rgb(133, 133, 173));
+}
+
+
+int create_event_queue(ALLEGRO_EVENT_QUEUE ** event_queue, ALLEGRO_BITMAP ** brick_right, ALLEGRO_BITMAP ** brick_left, ALLEGRO_BITMAP ** brick_bottom, ALLEGRO_BITMAP ** brick_top, ALLEGRO_BITMAP ** snake, ALLEGRO_DISPLAY ** display , ALLEGRO_TIMER ** timer)
+{
+	*event_queue = al_create_event_queue();
+	if (!event_queue)
+	{
+		fprintf(stderr, "failed to create event_queue");
+		al_destroy_bitmap(*brick_right);
+		al_destroy_bitmap(*brick_left);
+		al_destroy_bitmap(*brick_bottom);
+		al_destroy_bitmap(*brick_top);
+		al_destroy_bitmap(*snake);
+		al_destroy_display(*display);
+		al_destroy_timer(*timer);
+		return -1;
+	}
+
+	LOG(INFO) << "Event queue initialized correctly";
 }
 
 
