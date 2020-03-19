@@ -278,7 +278,7 @@ int init_game_graphics(ALLEGRO_BITMAP ** snake, ALLEGRO_BITMAP ** brick_top, ALL
 void set_graphics_color(ALLEGRO_BITMAP *snake, ALLEGRO_BITMAP * brick_top, ALLEGRO_BITMAP * brick_bottom, ALLEGRO_BITMAP * brick_left, ALLEGRO_BITMAP * brick_right)
 {
 	al_set_target_bitmap(snake);
-	al_clear_to_color(al_map_rgb(102, 255, 51));
+	al_clear_to_color(al_map_rgb(255, 255, 0));
 
 	al_set_target_bitmap(brick_top);
 	al_clear_to_color(al_map_rgb(194, 194, 214));
