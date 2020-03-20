@@ -32,7 +32,7 @@ void set_graphics_color(ALLEGRO_BITMAP *, ALLEGRO_BITMAP *, ALLEGRO_BITMAP *, AL
 
 int create_event_queue(ALLEGRO_EVENT_QUEUE **, ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_DISPLAY **, ALLEGRO_TIMER **);
 
-int isSnakeCollisionWithWall(int, int, int, int, int, int, int, int);
+int is_snake_collision_with_wall(int, int, int, int, int, int, int, int);
 
 
 int main(int argc, char **argv)
@@ -314,7 +314,7 @@ int create_event_queue(ALLEGRO_EVENT_QUEUE ** event_queue, ALLEGRO_BITMAP ** bri
 }
 
 
-int isSnakeCollisionWithWall(int snakePosX1, int snakePosY1, int snakeWidth, int snakeHeight, int wallPosX1, int wallPosY1, int wallWidth, int wallHeight)
+int is_snake_collision_with_wall(int snake_pos_x1, int snake_pos_y1, int snake_width, int snake_height, int wall_pos_x1, int wall_pos_y1, int wall_width, int wall_height)
 {
 	return 0;
 }
