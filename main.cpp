@@ -50,6 +50,7 @@ int main(int argc, char **argv)
 
 	float snake_x = SCREEN_W / 2.0 - SNAKE_SIZE / 2.0;
 	float snake_y = SCREEN_H / 2.0 - SNAKE_SIZE / 2.0;
+
 	Direction snake_direction = RIGHT;
 	Direction key_pressed = RIGHT;
 	
@@ -69,11 +70,13 @@ int main(int argc, char **argv)
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 
 	al_clear_to_color(al_map_rgb(0, 0, 0));
-
 	al_flip_display();
-
 	al_start_timer(timer);
 
+
+	/* * * * * * * * * * * * * * * * *
+	 *			Game loop start		 *
+	 * * * * * * * * * * * * * * * * */
 	while (!doexit)
 	{
 		ALLEGRO_EVENT ev;
@@ -168,6 +171,10 @@ int main(int argc, char **argv)
 			al_flip_display();
 		}
 	}
+	/* * * * * * * * * * * * * * * * *
+	 *			Game loop end		 *
+	 * * * * * * * * * * * * * * * * */
+
 
 	destroy_resources(timer, display, snake, brick_top, brick_bottom, brick_left, brick_right, event_queue);
 	LOG(INFO) << "End of the program";
