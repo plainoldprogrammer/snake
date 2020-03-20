@@ -334,6 +334,23 @@ void destroy_resources(ALLEGRO_TIMER * timer, ALLEGRO_DISPLAY * display, ALLEGRO
 
 int is_snake_collision_with_brick(int snake_pos_x1, int snake_pos_y1)
 {
+	if (snake_pos_y1 <= BRICK_HORIZONTAL_HEIGHT_SIZE)
+	{
+		LOG(INFO) << "Collision with top brick";
+	}
+	else if (snake_pos_y1 + SNAKE_SIZE >= SCREEN_H - BRICK_HORIZONTAL_HEIGHT_SIZE)
+	{
+		LOG(INFO) << "Collision with bottom brick";
+	}
+	else if (snake_pos_x1 <= BRICK_VERTICAL_WIDTH_SIZE)
+	{
+		LOG(INFO) << "Collision with left brick";
+	}
+	else if (snake_pos_x1 + SNAKE_SIZE >= SCREEN_W - BRICK_VERTICAL_WIDTH_SIZE)
+	{
+		LOG(INFO) << "Collision with right brick";
+	}
+
 	LOG(INFO) << "x: " << snake_pos_x1 << "\ty: " << snake_pos_y1;
 	return 0;
 }
