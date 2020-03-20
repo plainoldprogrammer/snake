@@ -32,10 +32,9 @@ void set_graphics_color(ALLEGRO_BITMAP *, ALLEGRO_BITMAP *, ALLEGRO_BITMAP *, AL
 
 int create_event_queue(ALLEGRO_EVENT_QUEUE **, ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_BITMAP **, ALLEGRO_DISPLAY **, ALLEGRO_TIMER **);
 
-int is_snake_collision_with_wall(int, int, int, int, int, int, int, int);
-
 void destroy_resources(ALLEGRO_TIMER *, ALLEGRO_DISPLAY *, ALLEGRO_BITMAP *, ALLEGRO_BITMAP *, ALLEGRO_BITMAP *, ALLEGRO_BITMAP *, ALLEGRO_BITMAP *, ALLEGRO_EVENT_QUEUE *);
 
+int is_snake_collision_with_brick(int, int);
 
 int main(int argc, char **argv)
 {
@@ -155,8 +154,11 @@ int main(int argc, char **argv)
 			}
 		}
 
+
 		if (redraw && al_is_event_queue_empty(event_queue))
 		{
+			is_snake_collision_with_brick(snake_x, snake_y);
+
 			redraw = false;
 
 			al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -315,11 +317,6 @@ int create_event_queue(ALLEGRO_EVENT_QUEUE ** event_queue, ALLEGRO_BITMAP ** bri
 }
 
 
-int is_snake_collision_with_wall(int snake_pos_x1, int snake_pos_y1, int snake_width, int snake_height, int wall_pos_x1, int wall_pos_y1, int wall_width, int wall_height)
-{
-	return 0;
-}
-
 void destroy_resources(ALLEGRO_TIMER * timer, ALLEGRO_DISPLAY * display, ALLEGRO_BITMAP * snake, ALLEGRO_BITMAP * brick_top, ALLEGRO_BITMAP * brick_bottom, ALLEGRO_BITMAP * brick_left, ALLEGRO_BITMAP * brick_right, ALLEGRO_EVENT_QUEUE * event_queue)
 {
 	al_destroy_timer(timer);
@@ -332,5 +329,12 @@ void destroy_resources(ALLEGRO_TIMER * timer, ALLEGRO_DISPLAY * display, ALLEGRO
 	al_destroy_event_queue(event_queue);
 	
 	LOG(INFO) << "Resources has been destroyed";
+}
+
+
+int is_snake_collision_with_brick(int snake_pos_x1, int snake_pos_y1)
+{
+	LOG(INFO) << "x: " << snake_pos_x1 << "\ty: " << snake_pos_y1;
+	return 0;
 }
 
